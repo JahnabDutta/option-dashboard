@@ -5,6 +5,7 @@ The Kinetic Ledger — minimal Indian options dashboard (Upstox + Streamlit).
 from __future__ import annotations
 
 import streamlit as st
+import json
 
 from src.charts import price_oi_figure
 from src.config import (
@@ -179,7 +180,7 @@ def main() -> None:
 
     token = ""
     try:
-        token = str(st.secrets["upstox_access_token"] or "").strip()
+        token = json.load(open('credentials.json','r',encoding='utf-8'))['upstox_access_token']
     except (KeyError, FileNotFoundError):
         token = ""
     except Exception:
